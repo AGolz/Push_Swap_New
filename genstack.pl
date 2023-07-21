@@ -6,7 +6,6 @@ use diagnostics;
 my ($stacksize, $min, $max) = @ARGV;
 my @stack = ();
 
-### Error management
 if (not defined $stacksize)
 {
 	die "Usage: ./genstack.pl stacksize [min] [max]\n";
