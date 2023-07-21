@@ -6,24 +6,24 @@
 /*   By: emaksimo <emaksimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 22:47:42 by emaksimo          #+#    #+#             */
-/*   Updated: 2023/07/18 21:25:39 by emaksimo         ###   ########.fr       */
+/*   Updated: 2023/07/21 18:52:32 by emaksimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-static void printStack(t_list **stack)
-{
-    t_list *temp = *stack;
+// static void printStack(t_list **stack)
+// {
+//     t_list *temp = *stack;
 
-    while (temp != NULL)
-    {
-        printf("%d ", temp->index);
-        temp = temp->next;
-    }
+//     while (temp != NULL)
+//     {
+//         printf("%d ", temp->index);
+//         temp = temp->next;
+//     }
 
-    printf("\n");
-}
+//     printf("\n");
+// }
 
 static void initializeStack(t_list **stack, int argc, char **argv)
 {
@@ -65,6 +65,11 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		return (-1);
+	// else
+	// {
+	// 	system("leaks push_swap && ./push_swap");
+	// 	printf("Finished checking leaks part I on %s!\n", argv[1]);
+	// }
 	validateInputArgs(argc, argv);
 	stack_a = (t_list **)malloc(sizeof(t_list));
 	stack_b = (t_list **)malloc(sizeof(t_list));
@@ -77,18 +82,20 @@ int	main(int argc, char **argv)
 		deleteLinkedList(stack_b);
 		return (0);
 	}
-	printf("before\n");
-    printf("stack A :\n");
-    printStack(stack_a);
-    printf("stack B :\n");
-    printStack(stack_b);
+	// printf("before\n");
+    // printf("stack A :\n");
+    // printStack(stack_a);
+    // printf("stack B :\n");
+    // printStack(stack_b);
 	sortStack(stack_a, stack_b);
-	printf("after \n");
-	printf("stack A :\n");
-	printStack(stack_a);
-	printf("stack B :\n");
-	printStack(stack_b);
+	// printf("after \n");
+	// printf("stack A :\n");
+	// printStack(stack_a);
+	// printf("stack B :\n");
+	// printStack(stack_b);
 	deleteLinkedList(stack_a);
 	deleteLinkedList(stack_b);
+	// system("leaks push_swap && ./push_swap");
+	// printf("Finished checking leaks part II on %s!\n", argv[1]);
 	return (0);
 }
