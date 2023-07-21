@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # A tester for Push_swap@42 - To see what's going on
 This tester shows the performance of your push_swap program. 
 
@@ -59,3 +60,7 @@ OPTIONS
 
 ## Contribution
 If you noticed something wrong with the code or if you'd like to see a new feature, you can submit an issue. If you'd like to contribute please submit a pull request :) 
+=======
+# Push_Swap_New :arrows_counterclockwise:
+Because Swap_push isn’t as natural
+>>>>>>> 7cf3396186493c694f9c3003933058d55a812abc
