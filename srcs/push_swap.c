@@ -6,7 +6,7 @@
 /*   By: emaksimo <emaksimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 22:47:42 by emaksimo          #+#    #+#             */
-/*   Updated: 2023/07/21 18:52:32 by emaksimo         ###   ########.fr       */
+/*   Updated: 2023/08/04 23:42:17 by emaksimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 //     while (temp != NULL)
 //     {
-//         printf("%d ", temp->index);
+//         printf("%d ", temp->value);
 //         temp = temp->next;
 //     }
 
@@ -55,7 +55,7 @@ static void	sortStack(t_list **stack_a, t_list **stack_b)
 	if (ft_lstsize(*stack_a) <= 5)
 		basicSort(stack_a, stack_b);
 	else
-		radixSort(stack_a, stack_b);
+		smartSort(stack_a, stack_b);
 }
 
 int	main(int argc, char **argv)
@@ -82,20 +82,8 @@ int	main(int argc, char **argv)
 		deleteLinkedList(stack_b);
 		return (0);
 	}
-	// printf("before\n");
-    // printf("stack A :\n");
-    // printStack(stack_a);
-    // printf("stack B :\n");
-    // printStack(stack_b);
 	sortStack(stack_a, stack_b);
-	// printf("after \n");
-	// printf("stack A :\n");
-	// printStack(stack_a);
-	// printf("stack B :\n");
-	// printStack(stack_b);
 	deleteLinkedList(stack_a);
 	deleteLinkedList(stack_b);
-	// system("leaks push_swap && ./push_swap");
-	// printf("Finished checking leaks part II on %s!\n", argv[1]);
 	return (0);
 }

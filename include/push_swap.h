@@ -6,7 +6,7 @@
 /*   By: emaksimo <emaksimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 10:43:15 by cfiora            #+#    #+#             */
-/*   Updated: 2023/07/18 21:20:15 by emaksimo         ###   ########.fr       */
+/*   Updated: 2023/08/04 23:23:40 by emaksimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@
 # include "../libft/libft.h"
 # include <limits.h>
 
-void	radixSort(t_list **stack_a, t_list **stack_b);
+#define NEARLY_SORTED_THRESHOLD 0.9
 
 void	basicSort(t_list **stack_a, t_list **stack_b);
+
+void	smartSort(t_list **stack_a, t_list **stack_b);
+int		isNearlySorted(t_list **stack);
 
 int		pushElement(t_list **stack_to, t_list **stack_from);
 int		pa(t_list **stack_a, t_list **stack_b);

@@ -6,7 +6,7 @@
 /*   By: emaksimo <emaksimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 19:42:55 by emaksimo          #+#    #+#             */
-/*   Updated: 2023/07/18 16:34:33 by emaksimo         ###   ########.fr       */
+/*   Updated: 2023/07/28 21:18:01 by emaksimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,6 @@ void	freeStringArray(char **stringArray)
 		i++;
 	while (i >= 0)
 		free(stringArray[i--]);
-}
-
-int	isLinkedListSorted(t_list **numStack)
-{
-	t_list	*listHead;
-
-	listHead = *numStack;
-	while (listHead && listHead->next)
-	{
-		if (listHead->value > listHead->next->value)
-			return (0);
-		listHead = listHead->next;
-	}
-	return (1);
 }
 
 int	getNodeDistance(t_list **numStack, int index)
