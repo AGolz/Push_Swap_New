@@ -6,57 +6,90 @@
 /*   By: emaksimo <emaksimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 10:43:15 by cfiora            #+#    #+#             */
-/*   Updated: 2023/08/04 23:23:40 by emaksimo         ###   ########.fr       */
+/*   Updated: 2023/09/06 01:20:40 by emaksimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PUSH_SWAP_H
-# define FT_PUSH_SWAP_H
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
 
-# include "../libft/libft.h"
+# include <fcntl.h>
 # include <limits.h>
+# include <unistd.h>
+# include <stdio.h>
+# include "../libft/libft.h"
 
-#define NEARLY_SORTED_THRESHOLD 0.9
+typedef struct s_stack
+{
+	int				value;
+	int				index;
+	int				sort;
+	struct s_stack	*next;
+}						t_stack;
 
-void	basicSort(t_list **stack_a, t_list **stack_b);
+typedef struct s_stacks
+{
+	int				length_a;
+	int				length_b;
+	int				optimum_a;
+	int				optimum_b;
+	int				optimum_pl;
+	int				tmp_a;
+	int				tmp_b;
+	int				tmp_pl;
+	int				cmd_print;
+	int				cmd_cnt;
+	t_stack			*a;
+	t_stack			*b;
+	t_stack			*max_sort;
+}						t_stacks;
 
-void	smartSort(t_list **stack_a, t_list **stack_b);
-int		isNearlySorted(t_list **stack);
+void		sort_too_elements(t_stacks *satcks);
+void		sort_three_elements(t_stacks *satcks);
+void		sort_four_elements(t_stacks *satcks);
+void		sort_five_elements(t_stacks *satcks);
 
-int		pushElement(t_list **stack_to, t_list **stack_from);
-int		pa(t_list **stack_a, t_list **stack_b);
-int		pb(t_list **stack_a, t_list **stack_b);
+int			findminimum_value(t_stacks *satcks);
+int			node_counter_b_to_a(int a, int b, int place_b);
+void		set_index(t_stack *stack);
 
-int		reverseRotateElements(t_list **stack);
-int		rra(t_list **stack_a);
-int     rrb(t_list **stack_b);
-int     rrr(t_list **stack_a, t_list **stack_b);
+void		cmd_counter(char *command, int cnt, t_stacks *stacks);
 
-int		rotateElements(t_list **stack);
-int		ra(t_list **stack_a);
-int		rb(t_list **stack_b);
-int		rr(t_list **stack_a, t_list **stack_b);
+void		principal_node_min(t_stacks *stacks);
+t_stack		*principal_nodes_front(t_stack **stack);
+t_stack		*principal_nodes_back(t_stack **stack);
 
-int		swapElements(t_list **stack);
-int		sa(t_list **stack_a);
-int		sb(t_list **stack_b);
-int		ss(t_list **stack_a, t_list **stack_b);
+int			push_element(t_stack **stk_destination, t_stack **stk_source);
+void		push_back(t_stack **stack, t_stack *new);
+void		push_front(t_stack **stack, t_stack *new);
+t_stack		*push_back_int(t_stack **stack, int value);
 
-void	displayErrorMessage(char *msg);
-void	freeStringArray(char **str);
-void	bringNodeToTop(t_list **stack, int distance);
-int		getNodeDistance(t_list **numStack, int index);
-void	deleteLinkedList(t_list **stack);
-int		isLinkedListSorted(t_list **stack);
+int			swap_elements(t_stack **stack);
+int			rotate_elements(t_stack **stack);
+int			reverse_rotate_elements(t_stack **stack);
 
+void		moving_a_to_b(t_stacks	*satcks);
+void		moving_b_to_a(t_stacks	*satcks);
+void		moving_node_b_to_a(t_stacks	*satcks);
+void		stack_normalization(t_stacks *stacks);
 
-void	enumerateStack(t_list **stack);
-void	displayLinkedList(t_list *listHead);
+int			distance_node_from_apex(int stack_len, int node_index);
+int			get_node_location_index(t_stack *stack, int node_value);
+t_stack		*get_maximum_nodes(t_stack *stack);
 
-void	validateInputArgs(int argc, char **argv);
+int			counter_node(t_stack *stack);
+t_stack		*create_new_node(int value);
+t_stack		*get_last_node(t_stack *stack);
+t_stacks	*create_stacks(int argc, char **argv);
 
+int			free_stacks(t_stacks **stacks, int ret_num);
+int			stack_set_commandd(t_stacks *stacks, t_stack *tmp_b);
+void		copy_optimum_place(t_stacks *stacks);
+void		display_error_message(t_stacks **stack, int ret_num);
 
-
-//void	optimizedPushSwap(t_list **stack_a, t_list **stack_b);
+int			valid_int(int value_i, char *value_c);
+int			not_duplicates(t_stack *stack, int value);
+int			stack_is_sorted(t_stacks *stacks);
+int			sort_stacks_check(t_stacks *stacks);
 
 #endif

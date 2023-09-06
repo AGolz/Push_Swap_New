@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaksimo <emaksimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaksimo <emaksimo@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 20:49:54 by emaksimo          #+#    #+#             */
-/*   Updated: 2023/01/17 21:50:06 by emaksimo         ###   ########.fr       */
+/*   Created: 2023/09/01 23:39:13 by emaksimo          #+#    #+#             */
+/*   Updated: 2023/09/02 08:28:29 by emaksimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@ int	ft_isdigit(int ch)
 {
 	if (ch >= 48 && ch <= 57)
 		return (1);
-	return (0);
+	else
+		return (0);
 }

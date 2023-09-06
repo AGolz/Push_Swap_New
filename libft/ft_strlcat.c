@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaksimo <emaksimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaksimo <emaksimo@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 20:50:31 by emaksimo          #+#    #+#             */
-/*   Updated: 2023/01/20 00:15:22 by emaksimo         ###   ########.fr       */
+/*   Created: 2023/09/01 23:39:13 by emaksimo          #+#    #+#             */
+/*   Updated: 2023/09/02 08:28:31 by emaksimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 
 	i = 0;
 	res = 0;
-	if (!size)
-		return (ft_strlen(src));
 	while (dst[i] && i < size)
 		i++;
 	while (src[res] && (i + res + 1) < size)

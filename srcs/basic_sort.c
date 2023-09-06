@@ -6,119 +6,71 @@
 /*   By: emaksimo <emaksimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:42:09 by emaksimo          #+#    #+#             */
-/*   Updated: 2023/08/05 00:44:10 by emaksimo         ###   ########.fr       */
+/*   Updated: 2023/09/06 01:20:40 by emaksimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-
-static int findMinimumValue(t_list *stack, int value)
+void	sort_too_elements(t_stacks *stks)
 {
-    int minValue = INT_MAX;
-    while (stack)
-    {
-        if (stack->index < minValue && stack->index != value)
-            minValue = stack->index;
-        stack = stack->next;
-    }
-    return minValue;
+	if (stks->a->value > stks->a->next->value)
+		cmd_counter("sa", 1, stks);
 }
 
-static void	sortThreeElements(t_list **stack_a)
+void	sort_three_elements(t_stacks *stks)
 {
-	t_list	*headNode;
-	int		minValue;
-	int		nextMinValue;
-
-	headNode = *stack_a;
-	minValue = findMinimumValue(*stack_a, -1);
-	nextMinValue = findMinimumValue(*stack_a, minValue);
-	if (isLinkedListSorted(stack_a))
-		return ;
-	if (headNode->index == minValue && headNode->next->index != nextMinValue)
+	while (!sort_stacks_check(stks))
 	{
-		rra(stack_a);
-		sa(stack_a);
-	}
-	else if (headNode->index == nextMinValue)
-	{
-		if (headNode->next->index == minValue)
-			sa(stack_a);
+		if ((stks->a->value < stks->a->next->value && stks->a->value
+				> stks->a->next->next->value) && (stks->a->next->value
+				> stks->a->value && stks->a->next->value
+				> stks->a->next->next->value))
+			cmd_counter("rra", 1, stks);
+		else if ((stks->a->value > stks->a->next->value && stks->a->value
+				> stks->a->next->next->value) && (stks->a->next->value
+				< stks->a->value && stks->a->next->value
+				< stks->a->next->next->value))
+			cmd_counter("ra", 1, stks);
 		else
-			rra(stack_a);
-	}
-	else if (headNode->next->index == minValue)
-			ra(stack_a);
-	else
-	{
-		sa(stack_a);
-		rra(stack_a);
+			cmd_counter("sa", 1, stks);
 	}
 }
-static void	sortFourElements(t_list **stack_a, t_list **stack_b)
+
+void	sort_four_elements(t_stacks *stks)
 {
-	int	distanceToMin;
+	int	minimum_value;
 
-	if (isLinkedListSorted(stack_a))
+	minimum_value = findminimum_value(stks);
+	if (minimum_value == 1)
+		cmd_counter("ra", 1, stks);
+	else if (minimum_value == 2)
+		cmd_counter("ra", 2, stks);
+	else if (minimum_value == 3)
+		cmd_counter("rra", 1, stks);
+	if (sort_stacks_check(stks))
 		return ;
-	distanceToMin = getNodeDistance(stack_a, findMinimumValue(*stack_a, -1));
-	if (distanceToMin == 1)
-		ra(stack_a);
-	else if (distanceToMin == 2)
-	{
-		ra(stack_a);
-		ra(stack_a);
-	}
-	else if (distanceToMin == 3)
-		rra(stack_a);
-	if (isLinkedListSorted(stack_a))
-		return ;
-	pb(stack_a, stack_b);
-	sortThreeElements(stack_a);
-	pa(stack_a, stack_b);
+	cmd_counter("pb", 1, stks);
+	sort_three_elements(stks);
+	cmd_counter("pa", 1, stks);
 }
 
-void	sortFiveElements(t_list **stack_a, t_list **stack_b)
+void	sort_five_elements(t_stacks *stks)
 {
-	int	distanceToMin;
+	int	minimum_value;
 
-	distanceToMin = getNodeDistance(stack_a, findMinimumValue(*stack_a, -1));
-	if (distanceToMin == 1)
-		ra(stack_a);
-	else if (distanceToMin == 2)
-	{
-		ra(stack_a);
-		ra(stack_a);
-	}
-	else if (distanceToMin == 3)
-	{
-		rra(stack_a);
-		rra(stack_a);
-	}
-	else if (distanceToMin == 4)
-		rra(stack_a);
-	if (isLinkedListSorted(stack_a))
+	minimum_value = findminimum_value(stks);
+	if (minimum_value == 1)
+		cmd_counter("ra", 1, stks);
+	else if (minimum_value == 2)
+		cmd_counter("ra", 2, stks);
+	else if (minimum_value == 3)
+		cmd_counter("rra", 2, stks);
+	else if (minimum_value == 4)
+		cmd_counter("rra", 1, stks);
+	if (sort_stacks_check(stks))
 		return ;
-	pb(stack_a, stack_b);
-	sortFourElements(stack_a, stack_b);
-	pa(stack_a, stack_b);
-}
-
-void basicSort(t_list **stack_a, t_list **stack_b) {
-    int stackSize = ft_lstsize(*stack_a);
-
-    // If the list is sorted or has less than 2 elements, return early
-    if (isLinkedListSorted(stack_a) || stackSize < 2)
-        return ;
-
-    // Otherwise, perform the appropriate sorting operation based on the size
-    if (stackSize == 2)
-        sa(stack_a);
-    else if (stackSize == 3)
-        sortThreeElements(stack_a);
-    else if (stackSize == 4)
-        sortFourElements(stack_a, stack_b);
-    else if (stackSize == 5)
-        sortFiveElements(stack_a, stack_b);
+	cmd_counter("pb", 1, stks);
+	sort_four_elements(stks);
+	cmd_counter("pa", 1, stks);
 }

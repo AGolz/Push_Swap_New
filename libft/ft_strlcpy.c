@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaksimo <emaksimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaksimo <emaksimo@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 20:50:34 by emaksimo          #+#    #+#             */
-/*   Updated: 2023/02/15 19:48:50 by emaksimo         ###   ########.fr       */
+/*   Created: 2023/09/01 23:39:13 by emaksimo          #+#    #+#             */
+/*   Updated: 2023/09/02 08:28:31 by emaksimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,21 @@
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	unsigned int	i;
-	size_t			size_src;
+	size_t	i;
 
 	i = 0;
-	if (src == NULL)
+	if (!dst || !src)
 		return (0);
-	size_src = ft_strlen(src);
-	if ((int)size > 0)
-		size = size_src + 1;
-	if (size >= 2 && size_src != 0)
+	if (size > 0)
 	{
-		while (i < size - 1)
+		while (--size && src[i])
 		{
-			if (i < size_src)
-				dst[i] = src[i];
-			else if (i == size_src)
-				dst[i] = '\0';
+			dst[i] = src[i];
 			i++;
 		}
-	}
-	if (size != 0)
 		dst[i] = '\0';
-	return (size_src);
+	}
+	while (src[i])
+		i++;
+	return (i);
 }

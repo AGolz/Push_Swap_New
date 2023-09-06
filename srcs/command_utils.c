@@ -6,78 +6,65 @@
 /*   By: emaksimo <emaksimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 19:42:55 by emaksimo          #+#    #+#             */
-/*   Updated: 2023/07/28 21:18:01 by emaksimo         ###   ########.fr       */
+/*   Updated: 2023/09/06 01:08:53 by emaksimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-void	displayErrorMessage(char *errorMsg)
+int	findminimum_value(t_stacks *stks)
 {
-	ft_putendl_fd(errorMsg, 1);
-	exit(0);
-}
+	int		min_value;
+	int		min_value_index;
+	t_stack	*stk_a;
 
-void	freeStringArray(char **stringArray)
-{
-	int	i;
-
-	i = 0;
-	while (stringArray[i])
-		i++;
-	while (i >= 0)
-		free(stringArray[i--]);
-}
-
-int	getNodeDistance(t_list **numStack, int index)
-{
-	t_list	*listHead;
-	int		distToNode;
-
-	distToNode = 0;
-	listHead = *numStack;
-	while (listHead)
+	min_value = stks->a->value;
+	min_value_index = 0;
+	stk_a = stks->a;
+	while (stk_a && stk_a->next)
 	{
-		if (listHead->index == index)
-			break ;
-		distToNode++;
-		listHead = listHead->next;
+		if (min_value > stk_a->next->value)
+			min_value = stk_a->next->value;
+		stk_a = stk_a->next;
 	}
-	return (distToNode);
+	stk_a = stks->a;
+	while (stk_a->next && stk_a->value != min_value)
+	{
+		min_value_index++;
+		stk_a = stk_a->next;
+	}
+	return (min_value_index);
 }
 
-void	bringNodeToTop(t_list **numStack, int distToNode)
+void	set_index(t_stack *stack)
 {
-	t_list	*listHead;
-	int		currentNum;
+	int	index;
 
-	if (distToNode == 0)
-		return ;
-	listHead = *numStack;
-	currentNum = ft_lstsize(listHead) - distToNode;
-	if (distToNode <= (ft_lstsize(listHead) / 2))
+	index = 0;
+	while (stack)
 	{
-		while (distToNode-- > 0)
-			ra(numStack);
+		stack->index = index;
+		index++;
+		stack = stack->next;
+	}
+}
+
+int	node_counter_b_to_a(int a, int b, int place_b)
+{
+	if (a > 0 && b > 0 && place_b != -1)
+	{
+		if (a > b)
+			return (a);
+		else
+			return (b);
+	}
+	if (a < 0 && b < 0 && place_b != -1)
+	{
+		if (ft_abs(a) > ft_abs(b))
+			return (ft_abs(a));
+		else
+			return (ft_abs(b));
 	}
 	else
-	{
-		while (currentNum-- > 0)
-			rra(numStack);
-	}
-}
-
-void	deleteLinkedList(t_list **numStack)
-{
-	t_list	*listHead;
-	t_list	*currentNum;
-
-	listHead = *numStack;
-	while (listHead)
-	{
-		currentNum = listHead;
-		listHead = listHead->next;
-		free(currentNum);
-	}
-	free(numStack);
+		return (ft_abs(a) + ft_abs(b));
 }

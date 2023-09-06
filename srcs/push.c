@@ -6,51 +6,53 @@
 /*   By: emaksimo <emaksimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 22:49:20 by emaksimo          #+#    #+#             */
-/*   Updated: 2023/07/18 15:41:31 by emaksimo         ###   ########.fr       */
+/*   Updated: 2023/09/06 01:31:23 by emaksimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-int	pushElement(t_list **stack_to, t_list **stack_from)
+int	push_element(t_stack **stk_destination, t_stack **stk_source)
 {
-	t_list	*tmp;
-	t_list	*head_to;
-	t_list	*head_from;
-
-	if (ft_lstsize(*stack_from) == 0)
-		return (-1);
-	head_to = *stack_to;
-	head_from = *stack_from;
-	tmp = head_from;
-	head_from = head_from->next;
-	*stack_from = head_from;
-	if (!head_to)
+	if (*stk_destination)
 	{
-		head_to = tmp;
-		head_to->next = NULL;
-		*stack_to = head_to;
+		push_front(stk_source, principal_nodes_front(stk_destination));
+		return (1);
 	}
+	return (-1);
+}
+
+void	push_back(t_stack **stack, t_stack *new)
+{
+	t_stack	*last;
+
+	if (*stack == NULL)
+	{
+		*stack = new;
+		return ;
+	}
+	last = get_last_node(*stack);
+	last->next = new;
+}
+
+void	push_front(t_stack **stack, t_stack *new)
+{
+	if (*stack == NULL)
+		*stack = new;
 	else
 	{
-		tmp->next = head_to;
-		*stack_to = tmp;
+		new->next = *stack;
+		*stack = new;
 	}
-	return (0);
 }
 
-int	pa(t_list **stack_a, t_list **stack_b)
+t_stack	*push_back_int(t_stack **stack, int value)
 {
-	if (pushElement(stack_a, stack_b) == -1)
-		return (-1);
-	ft_putendl_fd("pa", 1);
-	return (0);
-}
+	t_stack	*new;
 
-int	pb(t_list **stack_a, t_list **stack_b)
-{
-	if (pushElement(stack_b, stack_a) == -1)
-		return (-1);
-	ft_putendl_fd("pb", 1);
-	return (0);
+	new = create_new_node(value);
+	if (new == NULL)
+		return (NULL);
+	push_back(stack, new);
+	return (*stack);
 }

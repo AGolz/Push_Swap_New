@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: emaksimo <emaksimo@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/09/02 08:37:28 by emaksimo          #+#    #+#              #
+#    Updated: 2023/09/06 06:13:40 by emaksimo         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = push_swap
 BONUS_NAME = checker
 
@@ -10,20 +22,15 @@ BONUSSD = ${BONUSD}srcs/
 BONUSOD = ${BONUSD}objects/
 
 LIBFT := ${addprefix ${LIBFTD},libft.a}
-SOURCES = basic_sort.c push_swap.c push.c command_utils.c \
-radix_sort.c reverse_rotate.c rotate.c stack_utils.c swap.c utils.c
-
-BONUS = 
-
+SOURCES = push_swap.c basic_sort.c command.c command_utils.c push.c stacks_utils.c \
+principal_nodes.c reverse_rotate_swap.c sort_utils.c stacks.c utils.c valid.c
+BONUS = checker.c gnl_push_swap.c gnl_utils.c
 
 OBJECTS := ${addprefix ${OBJD},${SOURCES:.c=.o}}
-SOURCES := ${addprefix ${SRCD},${SOURCES:.c=.o}}
 BONUSO	:= ${addprefix ${BONUSOD},${BONUS:.c=.o}}
-BONUS := ${addprefix ${BONUSSD},${BONUS}}
 
-
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g
 LIBFTMK = make -C $(LIBFTD)
 
 BLUE = \033[1;36m 
@@ -34,11 +41,10 @@ WHALE	=	"\n$(BLUE)       ::: \n     ___:____     |^\/^| \n   ,'        '.    \  
 NUKE	=	"\n$(PINK)    _.-^^---....,,--       \n _--                  --_  \n<                        >)\n|                         | \n \._                   _./  \n    '''--. . , ; .--'''       \n          | |   |             \n       .-=||  | |=-.   \n       '-=£€%&%€£=-'   \n          | ;  :|     \n _____.,-£%&€@%£&£~,._____${NC}\n\n"
 
 
-.PHONY: all clean fclean re bonus
+.PHONY: all test clean fclean re 
 
 
 all: $(NAME)
-	@echo $?
 
 $(NAME): $(LIBFT) $(OBJECTS) $(INCD)push_swap.h
 	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) -I$(INCD) -o $(NAME) 
@@ -58,14 +64,16 @@ $(LIBFT):
 
 bonus: $(LIBFT) $(BONUSO) $(INCD)push_swap.h $(INCD)checker.h $(INCD)get_next_line_ps.h 
 	$(CC) $(CFLAGS) $(BONUSO) ${filter-out ${OBJD}push_swap.o,${OBJECTS}} $(LIBFT) -o $(BONUS_NAME) 
-	@echo "\n$(NAME_2): $(BLUE) Making checker... $(RESET)"
+	@echo "\n$(NAME_2) $(BLUE) Making checker... $(RESET)"
 	@echo $(WHALE)
 
+   
 $(BONUSOD)%.o: $(BONUSSD)%.c
 	mkdir -p $(BONUSOD)
 	$(CC) -c -o $@ $(CFLAGS) -I$(INCD) -I$(LIBFTD) $?
 
-
+test: bash tester/tester.sh push_swap $(ARGS)
+	
 clean:  
 	-rm -rf $(OBJD) $(BONUSOD)
 	$(LIBFTMK) clean

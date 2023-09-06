@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaksimo <emaksimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaksimo <emaksimo@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 20:49:10 by emaksimo          #+#    #+#             */
-/*   Updated: 2023/01/18 03:36:08 by emaksimo         ###   ########.fr       */
+/*   Created: 2023/09/01 23:39:13 by emaksimo          #+#    #+#             */
+/*   Updated: 2023/09/02 08:28:29 by emaksimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,28 @@
 
 int	ft_atoi(const char *str)
 {
-	int		negative;
-	long	i;
+	long int	num;
+	int			negative;
+	int			i;
 
-	i = 0;
+	num = 0;
+	i = ft_skipspace(str);
 	negative = 1;
-	while ((*str >= 9 && *str <= 13) || *str == ' ')
-		str++;
-	if (*str == '-')
-		negative = -1;
-	if (*str == '+' || *str == '-')
-		str++;
-	while (*str && *str >= '0' && *str <= '9')
+	while (str[i] == '-' && ft_isdigit(str[i + 1]))
 	{
-		i = i * 10 + (*str - '0');
-		if (i > 2147483648 && negative == -1)
-			return (0);
-		str++;
+		negative = -1;
+		i++;
 	}
-	return (negative * (int)i);
+	if (str[i] == '+' && ft_isdigit(str[i + 1]))
+		i++;
+	while (ft_isdigit(str[i]))
+	{
+		num = num * 10 + str[i] - 48;
+		if (num != -2147483648 && num < 0 && negative == -1)
+			return (0);
+		else if (num != -2147483648 && num < 0)
+			return (-1);
+		i++;
+	}
+	return (num * negative);
 }

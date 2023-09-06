@@ -5,45 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emaksimo <emaksimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 00:48:47 by emaksimo          #+#    #+#             */
-/*   Updated: 2023/01/18 02:00:31 by emaksimo         ###   ########.fr       */
+/*   Created: 2023/09/01 23:39:13 by emaksimo          #+#    #+#             */
+/*   Updated: 2023/09/02 19:00:46 by emaksimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static char	*ft_strcpy(char *dst, const char *src)
-{
-	int	i;
-
-	i = 0;
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
-}
-
-static char	*ft_strcat(char *s1, const char *s2)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (s1[i] != 0)
-		i++;
-	while (s2[j] != 0)
-	{
-		s1[i] = s2[j];
-		i++;
-		j++;
-	}
-	s1[i] = 0;
-	return (s1);
-}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
