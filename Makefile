@@ -92,3 +92,5 @@ fclean: clean
 	@echo $(NUKE)
 
 re: fclean all
+
+.PHONY: all test clean fclean re 
